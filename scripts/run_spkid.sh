@@ -12,8 +12,8 @@
 # - w:        a working directory for temporary files
 # - name_exp: name of the experiment
 # - db:       directory of the speecon database 
-lists=lists
-w=work
+lists=lists # directorio donde están las listas del fichero de señal.
+w=work # es donde metemos llos ficheros de todo el experimento.
 name_exp=one
 db=spk_8mu/speecon
 
@@ -86,10 +86,11 @@ fi
 # - Select (or change) different features, options, etc. Make you best choice and try several options.
 
 compute_lp() {
-    for filename in $(cat $lists/class/all.train $lists/class/all.test); do
+    for filename in $(sort $lists/class/all.train $lists/class/all.test); do # encadena los ficheros de entrenamiento y de reconocimiento
+    # He sustituido cat por sort para pasar solo una vez por cada directorio
         mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
         EXEC="wav2lp 8 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
-        echo $EXEC && $EXEC || exit 1
+        echo $EXEC && $EXEC || exit 1 # Si hay algún error, se para la ejecución.
     done
 }
 
