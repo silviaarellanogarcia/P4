@@ -41,7 +41,7 @@ fi
 
 # Main command for feature extration
 sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 | $WINDOW -l 240 -L 240 |
-	$MFCC -l 240 -s 8 -m $mfcc_order -n $mfcc_nfilter > $base.mfcc
+	$MFCC -l 240 -s 8 -w 1 -m $mfcc_order -n $mfcc_nfilter > $base.mfcc
 
 # Our array files need a header with the number of cols and rows:
 ncol=$mfcc_order # mfcc p =>  (c0 c1 c2 ... cp-1) 

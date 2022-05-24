@@ -17,11 +17,11 @@ w=work # es donde metemos llos ficheros de todo el experimento.
 name_exp=one
 db_dev=spk_8mu/speecon
 db_final=spk_8mu/sr_test
-world=users
-init_method=0
+world=users_and_others
+init_method=2
 
-TRAIN_OPTS="-T 1.e-6 -N100 -m 32"
-WORLD_OPTS="-T 1.e-6 -N100 -m 16"
+TRAIN_OPTS="-T 1.e-6 -N256 -m 32"
+WORLD_OPTS="-T 1.e-6 -N128 -m 32"
 # ------------------------
 # Usage
 # ------------------------
@@ -96,7 +96,7 @@ compute_lp() {
     for filename in $(sort $*); do # encadena los ficheros de entrenamiento y de reconocimiento
     # He sustituido cat por sort para pasar solo una vez por cada directorio
         mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
-        EXEC="wav2lp 8 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
+        EXEC="wav2lp 20 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
         echo $EXEC && $EXEC || exit 1 # Si hay algún error, se para la ejecución.
     done
 }
@@ -106,7 +106,7 @@ compute_lpcc() {
     shift
     for filename in $(sort $*); do
         mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
-        EXEC="wav2lpcc 20 15 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
+        EXEC="wav2lpcc 25 25 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
         echo $EXEC && $EXEC || exit 1
     done
 }
@@ -116,7 +116,7 @@ compute_mfcc() {
     shift
     for filename in $(sort $*); do
         mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
-        EXEC="wav2mfcc 20 10 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
+        EXEC="wav2mfcc 20 30 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
         echo $EXEC && $EXEC || exit 1
     done
 }
