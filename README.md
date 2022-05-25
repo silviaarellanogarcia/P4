@@ -152,7 +152,7 @@ Complete el código necesario para realizar verificación del locutor y optimice
   |-----------------|:----:|:----:|:----:|
   | Umbral óptimo   | xx | xx | xx |
   | Pérdidas        | xx/250 = xx | xx/250 = xx | xx/250 = xx |
-  | Falsas Alarmas  | xx/1000 = 0 | xx/1000 = xx | xx/1000 = 0|
+  | Falsas Alarmas  | xx/1000 = 0 | xx/1000 = xx | xx/1000 = xx|
   | Cost Detection  | xx | xx | xx |
  
 ### Test final
