@@ -86,28 +86,27 @@ ejercicios indicados.
   + Indique **todas** las órdenes necesarias para obtener las gráficas a partir de las señales 
     parametrizadas.
 
-    (Las XX y XXX de los comandos han de sustituirse por los números correspondientes para llegar a un locutor en concreto)
 
     - LP
-
-      `fmatrix_show work/lp/BLOCKXX/SESXXX/*.lp | egrep '^\[' | cut -f4,5 > lp_param.txt`
+      ![lp correlation](img/lp_correlation.png)
+      `plot_gmm_feat -x 2 -y 3 -g green work/gmm/lp/SES119.gmm work/lp/BLOCK11/SES119/SA119S*`
     - LPCC
-
-      `fmatrix_show work/lpcc/BLOCKXX/SESXXX/*.lpcc | egrep '^\[' | cut -f4,5 > lpcc_param.txt`
+      ![lpcc correlation](img/lpcc_correlation.png)
+      `plot_gmm_feat -x 2 -y 3 -g green work/gmm/lpcc/SES119.gmm work/lpcc/BLOCK11/SES119/SA119S*`
     - MFCC
-    
-      `fmatrix_show work/mfcc/BLOCKXX/SESXXX/*.mfcc | egrep '^\[' | cut -f4,5 > mfcc_param.txt`
+      ![mfcc correlation](img/mfcc_correlation.png)
+      `plot_gmm_feat -x 2 -y 3 -g green work/gmm/mfcc/SES119.gmm work/mfcc/BLOCK11/SES119/SA119S*`
 
   + ¿Cuál de ellas le parece que contiene más información?
   
-    La propiedad de correlación indica el parecido entre dos señales. Cuanto más correladas estén, menos información nueva aportarán. Como puede apreciarse en las gráficas superiores, la gráfica de MFCC es la que tiene los puntos más separados, es decir, la más incorrelada. Por ello, será la que aporte más información. La gráfica que la seguiría sería la de LPCC y por último, la que aporta menos información es la de LP.
+    La propiedad de correlación indica el parecido entre dos señales. Cuanto más correladas estén, menos información nueva aportarán. Como puede apreciarse en las gráficas superiores, las gráficas de MFCC y LPCC son las que tienen los puntos más separados, es decir, las más incorreladas. Por ello, serán las que aporten más información. En último lugar, la que aporta menos información es la de LP.
 
 - Usando el programa <code>pearson</code>, obtenga los coeficientes de correlación normalizada entre los
   parámetros 2 y 3 para un locutor, y rellene la tabla siguiente con los valores obtenidos.
 
   |                        | LP   | LPCC | MFCC |
   |------------------------|:----:|:----:|:----:|
-  | &rho;<sub>x</sub>[2,3] |      |      |      |
+  | &rho;<sub>x</sub>[2,3] | -0.84003 |0.307484 | -0.0289964 |
   
   + Compare los resultados de <code>pearson</code> con los obtenidos gráficamente.
 
@@ -128,6 +127,12 @@ Complete el código necesario para entrenar modelos GMM.
   de la página 20 del enunciado puede servirle de referencia del resultado deseado). Analice la capacidad
   del modelado GMM para diferenciar las señales de uno y otro.
 
+  Podemos observar que si el entrenamiento se hace correctamente, el modelo GMM se adapta perfectamente a la distribución de probabilidad.
+  ![right model](img/right_model.png)
+
+  En cambio, si visualizamos un modelo GMM entrenado de un locutor con la distribución de probabilidad de los dos primeros coeficientes MFCC de otro locutor, se observa que no se adapta a la distribución de los datos. Por esto, el modelado GMM tiene la capacidad de diferenciar señales de uno u otro locutor.
+  ![wrong model](img/wrong_model.png)
+
 ### Reconocimiento del locutor.
 
 Complete el código necesario para realizar reconociminto del locutor y optimice sus parámetros.
@@ -137,7 +142,7 @@ Complete el código necesario para realizar reconociminto del locutor y optimice
 
   |               | LP   | LPCC | MFCC |
   |---------------|:----:|:----:|:----:|
-  | Tasa de error |      |      |      |
+  | Tasa de error | 9.17% | 0.51% | 0.64% |
 
 ### Verificación del locutor.
 
@@ -150,10 +155,10 @@ Complete el código necesario para realizar verificación del locutor y optimice
 
   |                 | LP | LPCC | MFCC |
   |-----------------|:----:|:----:|:----:|
-  | Umbral óptimo   | xx | xx | xx |
-  | Pérdidas        | xx/250 = xx | xx/250 = xx | xx/250 = xx |
-  | Falsas Alarmas  | xx/1000 = 0 | xx/1000 = xx | xx/1000 = xx|
-  | Cost Detection  | xx | xx | xx |
+  | Umbral óptimo   | 0.517695239607905 | 0.276933713207707 | 0.390129901113577 |
+  | Pérdidas        | 92/250 = 0.3680 | 7/250 = 0.0280 | 17/250 = 0.0680 |
+  | Falsas Alarmas  | 13/1000 = 0.0130 | 1/1000 = 0.0010 | 2/1000 = 0.0020|
+  | Cost Detection  | 48.5 | 3.7 | 8.6 |
  
 ### Test final
 
